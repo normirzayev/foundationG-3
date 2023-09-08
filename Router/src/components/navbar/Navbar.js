@@ -1,5 +1,5 @@
 import React from "react";
-import { Link, NavLink } from "react-router-dom";
+import { NavLink } from "react-router-dom";
 
 export default function Navbar() {
   return (
@@ -8,10 +8,10 @@ export default function Navbar() {
         <div className="container-fluid">
           <ul className="d-flex gap-5 mt-3">
             <li>
-              <NavLink to={"/"}>home</NavLink>
+              <NavLink to={"/"}>Form</NavLink>
             </li>
             <li>
-              <NavLink to={"/about"}>about</NavLink>
+              <NavLink to={"/table"}>table</NavLink>
             </li>
             <li>
               <NavLink to={"/setting"}>setting</NavLink>
