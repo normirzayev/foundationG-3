@@ -9,6 +9,8 @@ import Blog from "./Blog";
 import NotFoun from "./NotFoun";
 import Swal from "sweetalert2";
 import { toast } from "react-toastify";
+import Navbar from "../components/navbar/Navbar";
+import Show from "../components/show/Show";
 export default function PageIndex() {
   const [product, setProduct] = useState([]);
   let link = useNavigate();
@@ -172,32 +174,35 @@ export default function PageIndex() {
   };
   return (
     <Routes>
-      <Route
-        path="/"
-        element={
-          <Form
-            inputValue={inputValue}
-            getInputValue={getInputValue}
-            // getRasm={getRasm}
-            sendFunc={sendFunc}
-          />
-        }
-      />
-      <Route
-        path="/table"
-        element={
-          <Table
-            product={product}
-            handleDelete={handleDelete}
-            handleEdit={handleEdit}
-            changeCount={changeCount}
-          />
-        }
-      />
-      <Route path="/contactus" element={<ContactUS />} />
-      <Route path="/setting" element={<Setting />} />
-      <Route path="/service" element={<Service />} />
-      <Route path="/blog" element={<Blog />} />
+      <Route element={<Navbar />}>
+        <Route
+          path="/"
+          element={
+            <Form
+              inputValue={inputValue}
+              getInputValue={getInputValue}
+              // getRasm={getRasm}
+              sendFunc={sendFunc}
+            />
+          }
+        />
+        <Route
+          path="/table"
+          element={
+            <Table
+              product={product}
+              handleDelete={handleDelete}
+              handleEdit={handleEdit}
+              changeCount={changeCount}
+            />
+          }
+        />
+        <Route path="/contactus" element={<ContactUS />} />
+        <Route path="/setting" element={<Setting />} />
+        <Route path="/service" element={<Service />} />
+        <Route path="/blog" element={<Blog />} />
+        <Route path="/show/:id" element={<Show />} />
+      </Route>
       <Route path="*" element={<NotFoun />} />
     </Routes>
   );

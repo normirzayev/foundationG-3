@@ -56,3 +56,8 @@ td {
   background-color: blue;
   padding: 20px;
 }
+.box {
+  display: grid;
+  gap: 15px;
+  grid-template-columns: repeat(4, calc(100% / 4 - 15px));
+}

@@ -1,6 +1,6 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
-
+import { Outlet } from "react-router-dom";
 export default function Navbar() {
   return (
     <div>
@@ -19,6 +19,9 @@ export default function Navbar() {
             <li>
               <NavLink to={"/contactus"}>contactUs</NavLink>
             </li>
+            <li>
+              <NavLink to={"/blog"}>blog</NavLink>
+            </li>
           </ul>
           <form className="d-flex" role="search">
             <input
@@ -33,6 +36,7 @@ export default function Navbar() {
           </form>
         </div>
       </nav>
+      <Outlet />
     </div>
   );
 }
