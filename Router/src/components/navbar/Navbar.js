@@ -1,7 +1,7 @@
-import React from "react";
+import React, { memo } from "react";
 import { NavLink } from "react-router-dom";
 import { Outlet } from "react-router-dom";
-export default function Navbar() {
+function Navbar() {
   return (
     <div>
       <nav className="navbar bg-light ">
@@ -22,6 +22,9 @@ export default function Navbar() {
             <li>
               <NavLink to={"/blog"}>blog</NavLink>
             </li>
+            <li>
+              <NavLink to={"/apiData"}>api data</NavLink>
+            </li>
           </ul>
           <form className="d-flex" role="search">
             <input
@@ -40,3 +43,4 @@ export default function Navbar() {
     </div>
   );
 }
+export default memo(Navbar);

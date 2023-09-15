@@ -21,7 +21,7 @@ export default function Setting() {
       <h1>son:{state}</h1>
       <button onClick={funClikc}> click </button>
       <hr />
-      <Test m1={m1} />
+      {/* <Test m1={m1} /> */}
     </div>
   );
 }

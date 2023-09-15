@@ -1,9 +1,11 @@
-import { createContext, useState } from "react";
+import { createContext, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
 export const ContextData = createContext();
 
 function ContextProvider({ children }) {
   const [state, setState] = useState(1);
+  const [apiData, setApiData] = useState([]);
+  const [load, setLoad] = useState(false);
   const [showData, setShowData] = useState({});
   let link = useNavigate();
   function countChange(e) {
@@ -254,12 +256,26 @@ function ContextProvider({ children }) {
 
   let handleShow = (elem) => {
     setShowData(elem);
-    link(`/show/${elem.id}`);
+    link(`/blog/${elem.id}`);
   };
+
+
+
+
 
   return (
     <ContextData.Provider
-      value={{ countChange, state, data, handleShow, showData }}
+      value={{
+        countChange,
+        state,
+        data,
+        handleShow,
+        showData,
+        load,
+        setLoad,
+        apiData,
+        setApiData
+      }}
     >
       {children}
     </ContextData.Provider>
