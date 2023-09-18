@@ -13,6 +13,8 @@ import Navbar from "../components/navbar/Navbar";
 import Show from "../components/show/Show";
 import Footer from "../components/footer/Footer";
 import ApiData from "./ApiData";
+import LocalForm from "./LocalForm";
+import LocalTable from "./LocalTable";
 export default function PageIndex() {
   const [product, setProduct] = useState([]);
   let link = useNavigate();
@@ -177,7 +179,7 @@ export default function PageIndex() {
   return (
     <Routes>
       <Route element={<Navbar />}>
-        <Route element={<Footer />} >
+        <Route element={<Footer />}>
           <Route
             path="/"
             element={
@@ -206,6 +208,9 @@ export default function PageIndex() {
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<Show />} />
           <Route path="/apiData" element={<ApiData />} />
+          <Route path="/localForm" element={<LocalForm />} />
+          <Route path="/localForm/:id" element={<LocalForm />} />
+          <Route path="/localTable" element={<LocalTable />} />
         </Route>
       </Route>
       <Route path="*" element={<NotFoun />} />

@@ -1,4 +1,4 @@
-import { createContext, useEffect, useState } from "react";
+import { createContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 export const ContextData = createContext();
 
@@ -7,6 +7,80 @@ function ContextProvider({ children }) {
   const [apiData, setApiData] = useState([]);
   const [load, setLoad] = useState(false);
   const [showData, setShowData] = useState({});
+  let t = useNavigate()
+  // localStorage fucksiyalari
+  let [inputV, setInputV] = useState({
+    nomi: "",
+    soni: 0,
+    rangi: "",
+    narxi: "",
+    rasm: ""
+  })
+  let clearValue = () => {
+    setInputV(
+      {
+        nomi: "",
+        soni: 0,
+        rangi: "",
+        narxi: "",
+        rasm: ""
+      }
+    )
+  }
+  const [localData, setLocalData] = useState(
+    JSON.parse(localStorage.getItem('localData')) || []
+  )
+
+  let refreshLocal = function () {
+    setLocalData(JSON.parse(localStorage.getItem('localData')) || [])
+  }
+
+  let getInputValue = (e) => {
+    if (e.target.type === 'file') {
+      setInputV({
+        ...inputV,
+        rasm: URL.createObjectURL(e.target.files[0])
+      })
+    } else {
+      setInputV({
+        ...inputV,
+        [e.target.name]: e.target.value
+      })
+    }
+  }
+
+  let sendF = function (e) {
+    e.preventDefault();
+    // console.log({ ...inputV, id: Date.now() });
+
+    if (!inputV?.id) {
+      localStorage.setItem('localData', JSON.stringify([...localData, { ...inputV, id: Date.now() }]))
+    }
+    else {
+      localStorage.setItem('localData', JSON.stringify(
+        localData.map(u => u.id === inputV.id ? inputV : u)
+      ))
+    }
+
+    t('/localTable')
+    clearValue()
+    refreshLocal()
+  }
+
+
+  let handleEdit = (elem) => {
+    t(`/localForm/${elem?.id}`)
+    setInputV(elem)
+  }
+
+  function handleDelete(ID) {
+    localStorage.setItem('localData', JSON.stringify(
+      localData.filter(o => o?.id !== ID)
+    ))
+    refreshLocal()
+  }
+
+
   let link = useNavigate();
   function countChange(e) {
     switch (e.target.name) {
@@ -15,6 +89,24 @@ function ContextProvider({ children }) {
         break;
       case "minus":
         setState((prev) => prev - 1);
+        break;
+      default:
+        break;
+    }
+  }
+  function countChangeLocal(e, ID) {
+    switch (e.target.name) {
+      case "plus":
+        localStorage.setItem('localData', JSON.stringify(
+          localData.map(u => u.id === ID ? { ...u, soni: u.soni + 1 } : u)
+        ))
+        refreshLocal()
+        break;
+      case "minus":
+        localStorage.setItem('localData', JSON.stringify(
+          localData.map(u => u.id === ID ? { ...u, soni: u.soni - 1 } : u)
+        ))
+        refreshLocal()
         break;
       default:
         break;
@@ -259,10 +351,6 @@ function ContextProvider({ children }) {
     link(`/blog/${elem.id}`);
   };
 
-
-
-
-
   return (
     <ContextData.Provider
       value={{
@@ -274,7 +362,15 @@ function ContextProvider({ children }) {
         load,
         setLoad,
         apiData,
-        setApiData
+        setApiData,
+        localData,
+        getInputValue,
+        sendF,
+        handleDelete,
+        handleEdit,
+        setInputV,
+        inputV,
+        countChangeLocal
       }}
     >
       {children}

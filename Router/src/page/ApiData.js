@@ -4,7 +4,6 @@ import Loading from "../components/loading/Loading";
 
 export default function ApiData() {
   let { apiData, load } = useContext(ContextData);
-  console.log(apiData.products);
   return (
     <div className="gridBox">
       <Loading load={load} />

@@ -25,6 +25,12 @@ function Navbar() {
             <li>
               <NavLink to={"/apiData"}>api data</NavLink>
             </li>
+            <li>
+              <NavLink to={"/localForm"}>localForm</NavLink>
+            </li>
+            <li>
+              <NavLink to={"/localTable"}>localTable</NavLink>
+            </li>
           </ul>
           <form className="d-flex" role="search">
             <input
